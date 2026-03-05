@@ -1,0 +1,33 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Book {
+   id
+  title
+author
+year
+available (boolean)
+}
+
+model UserBook {
+  id
+  userId (string)
+  bookId 
+  status BookStatus
+  addedAt DateTime
+}
+
+enum BookStatus {
+  to_read
+  reading
+  done
+}
