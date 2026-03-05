@@ -6,7 +6,7 @@ import { AppConfig } from "./utils/appConfig.js";
 import { prismaClient } from "./ioc.js";
 import { errorHandlerMiddleware } from "./middleware/errorMiddleware.js";
 import { bookRouter } from "./routes/bookRouter.js";
-import { userRouter } from "./routes/userRouter.js";
+import { userBookRouter } from "./routes/userBookRouter.js";
 
 export const app = express();
 
@@ -20,7 +20,7 @@ app.get("/health", (req: Request, res: Response) => {
 
 app.use("/books", bookRouter);
 
-app.use("/users", userRouter);
+app.use("/users", userBookRouter);
 
 app.use(errorHandlerMiddleware);
 

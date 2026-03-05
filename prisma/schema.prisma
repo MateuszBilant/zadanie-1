@@ -3,7 +3,7 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated"
 }
 
 datasource db {
@@ -11,23 +11,21 @@ datasource db {
 }
 
 model Book {
-   id
-  title
-author
-year
-available (boolean)
+  id        String     @id @default(cuid())
+  title     String
+  author    String
+  year      Int
+  available Boolean    @default(true)
+  userBooks UserBook[]
 }
 
 model UserBook {
-  id
-  userId (string)
-  bookId 
-  status BookStatus
-  addedAt DateTime
-}
+  id      String @id @default(cuid())
+  userId  String
+  bookId  String
+  status  String   @default("to_read")
+  addedAt DateTime @default(now())
+  book    Book   @relation(fields: [bookId], references: [id])
 
-enum BookStatus {
-  to_read
-  reading
-  done
+  @@unique([userId, bookId])
 }
